@@ -20,7 +20,7 @@
                                 <rect key="frame" x="20" y="128" width="353" height="704"/>
                                 <subviews>
                                     <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="13B-eP-blz">
-                                        <rect key="frame" x="0.0" y="10" width="353" height="78"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="353" height="78"/>
                                         <items>
                                             <barButtonItem title="Settings" id="KWR-Oc-0km">
                                                 <connections>
@@ -56,6 +56,9 @@
                                                         </label>
                                                     </subviews>
                                                 </tableViewCellContentView>
+                                                <connections>
+                                                    <segue destination="hWc-mZ-MaI" kind="show" identifier="showQuestion" id="I4S-rL-jeN"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
@@ -78,6 +81,73 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="140" y="131"/>
+        </scene>
+        <!--Question View Controller-->
+        <scene sceneID="QFV-cT-ifV">
+            <objects>
+                <viewController id="hWc-mZ-MaI" customClass="QuestionViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="S41-ot-06X">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="HXY-LB-vmW">
+                                <rect key="frame" x="20" y="79" width="353" height="694"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aZV-uE-9oe">
+                                        <rect key="frame" x="0.0" y="0.0" width="353" height="231.33333333333334"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="6z4-c5-lFq">
+                                        <rect key="frame" x="0.0" y="231.33333333333331" width="353" height="231.33333333333331"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4h5-mP-afK">
+                                                <rect key="frame" x="0.0" y="0.0" width="353" height="77"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Answer 1"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EpY-YZ-UAI">
+                                                <rect key="frame" x="0.0" y="77" width="353" height="77.333333333333314"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Answer 2"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3rd-Oj-cEw">
+                                                <rect key="frame" x="0.0" y="154.33333333333337" width="353" height="77"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Answer 3"/>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WhM-zN-8ZD">
+                                        <rect key="frame" x="0.0" y="462.66666666666657" width="353" height="231.33333333333331"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Submit"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="VU9-hS-Yyn"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="VU9-hS-Yyn" firstAttribute="bottom" secondItem="HXY-LB-vmW" secondAttribute="bottom" constant="20" id="Qpd-nX-OP9"/>
+                            <constraint firstItem="HXY-LB-vmW" firstAttribute="leading" secondItem="VU9-hS-Yyn" secondAttribute="leading" constant="20" id="TWS-B4-DKE"/>
+                            <constraint firstItem="HXY-LB-vmW" firstAttribute="top" secondItem="VU9-hS-Yyn" secondAttribute="top" constant="20" id="VWV-q3-KIJ"/>
+                            <constraint firstItem="VU9-hS-Yyn" firstAttribute="trailing" secondItem="HXY-LB-vmW" secondAttribute="trailing" constant="20" id="Z0v-z6-C3O"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="0mW-sP-vtI"/>
+                    <connections>
+                        <outlet property="questionLabel" destination="aZV-uE-9oe" id="yLM-9u-xcG"/>
+                        <outlet property="submitButton" destination="WhM-zN-8ZD" id="EGL-SZ-q8I"/>
+                        <outletCollection property="answerButtons" destination="4h5-mP-afK" collectionClass="NSMutableArray" id="1g7-bv-he8"/>
+                        <outletCollection property="answerButtons" destination="EpY-YZ-UAI" collectionClass="NSMutableArray" id="DYx-6U-r4x"/>
+                        <outletCollection property="answerButtons" destination="3rd-Oj-cEw" collectionClass="NSMutableArray" id="Rlm-ll-NT1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="For-az-Fkd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1129" y="131"/>
         </scene>
     </scenes>
     <resources>

@@ -24,10 +24,23 @@ class ViewController: UIViewController {
     }
     
     let quizzes: [Quiz] = [
-        Quiz(title: "Math", description: "Test your math skills", iconName: "function"),
-        Quiz(title: "Marvel Super Heroes", description: "Test your marvel knowledge", iconName: "bolt.fill"),
-        Quiz(title: "Science", description: "Test your science knowledge", iconName: "atom")
-            
+        Quiz(
+            title: "Mathematics",
+            description: "Test your math knowledge.",
+            iconName: "function",
+            questions: [
+                Question(
+                    text: "What is 2 + 2?",
+                    answers: ["3", "4", "5"],
+                    correctIndex: 1
+                ),
+                Question(
+                    text: "What is 5 * 3?",
+                    answers: ["15", "10", "8"],
+                    correctIndex: 0
+                )
+            ]
+        )
     ]
 
     override func viewDidLoad() {
@@ -36,6 +49,17 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         // Do any additional setup after loading the view.
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showQuestion" {
+            if let questionVC = segue.destination as? QuestionViewController,
+               let indexPath = tableView.indexPathForSelectedRow {
+                
+                questionVC.quiz = quizzes[indexPath.row]
+                questionVC.questionIndex = 0
+            }
+        }
     }
 
 
@@ -60,4 +84,6 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
 }
+
+
 
