@@ -9,42 +9,94 @@ import UIKit
 
 class QuestionViewController: UIViewController {
     
-    @IBOutlet weak var questionLabel: UILabel!
-    @IBOutlet var answerButtons: [UIButton]!
-    @IBOutlet weak var submitButton: UIButton!
-
-    var selectedIndex: Int?
-    var quiz: Quiz!
-    var questionIndex: Int = 0
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        let question = quiz.questions[questionIndex]
-        questionLabel.text = question.text
-
-        for (index, answer) in question.answers.enumerated() {
-            answerButtons[index].setTitle(answer, for: .normal)
-            answerButtons[index].backgroundColor = .systemGray5
+    var quiz: Quiz?  // passed from the table
+    var currentQuestionIndex = 0
+    var selectedAnswerIndex : Int? = nil
+    
+    @IBOutlet weak var questionLabel: UILabel!
+    @IBOutlet weak var answer1Button: UIButton!
+    @IBOutlet weak var answer2Button: UIButton!
+    @IBOutlet weak var answer3Button: UIButton!
+    @IBOutlet weak var submitButton: UIButton!
+    
+    var lastWasCorrect: Bool = false
+    var lastCorrectAnswer: String = ""
+    var lastQuestionText: String = ""
+    
+    func loadQuestion() {
+        guard let quiz = quiz,
+              currentQuestionIndex < quiz.questions.count else { return }
+        
+        selectedAnswerIndex = nil
+        let q = quiz.questions[currentQuestionIndex]
+        questionLabel.text = q.text
+        answer1Button.setTitle(q.answers[0], for: .normal)
+        answer2Button.setTitle(q.answers[1], for: .normal)
+        answer3Button.setTitle(q.answers[2], for: .normal)
+        
+        deselectAll()
+        submitButton.isEnabled = false
+        
+        
+    }
+    
+    
+    func deselectAll() {
+        for btn in [answer1Button, answer2Button, answer3Button] {
+            btn?.backgroundColor = .systemBackground
+            btn?.layer.borderWidth = 1
+            btn?.layer.borderColor = UIColor.systemBlue.cgColor
+            btn?.setTitleColor(.systemBlue, for: .normal)
+            btn?.layer.cornerRadius = 8
         }
     }
     
+    func selectButton(_ button: UIButton) {
+        deselectAll()
+        button.backgroundColor = .systemBlue
+        button.setTitleColor(.white, for: .normal)
+    }
+    
+    
     @IBAction func answerTapped(_ sender: UIButton) {
-        // Clear previous selection
-        for button in answerButtons {
-            button.backgroundColor = .systemGray5
+        selectButton(sender)
+        switch sender {
+        case answer1Button: selectedAnswerIndex = 0
+        case answer2Button: selectedAnswerIndex = 1
+        case answer3Button: selectedAnswerIndex = 2
+        default: break
         }
-        
-        // Highlight selected
-        sender.backgroundColor = .systemBlue
-        
-        selectedIndex = answerButtons.firstIndex(of: sender)
+        submitButton.isEnabled = true
     }
     
     @IBAction func submitTapped(_ sender: UIButton) {
-        guard selectedIndex != nil else { return }
+        guard let selectedAnswerIndex = selectedAnswerIndex,
+              let quiz = quiz else { return }
         
-        performSegue(withIdentifier: "showAnswer", sender: nil)
+        let q = quiz.questions[currentQuestionIndex]
+        lastWasCorrect = selectedAnswerIndex == q.correctIndex
+        lastCorrectAnswer = q.answers[q.correctIndex]
+        lastQuestionText = q.text
+        
+        performSegue(withIdentifier: "ShowAnswer", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowAnswer",
+           let destVC = segue.destination as? AnswerViewController {
+            destVC.questionText = lastQuestionText
+            destVC.correctAnswer = lastCorrectAnswer
+            destVC.wasCorrect = lastWasCorrect
+        }
     }
 
+
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        loadQuestion()
+        
+    }
+    
 }

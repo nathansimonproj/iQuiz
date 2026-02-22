@@ -40,8 +40,56 @@ class ViewController: UIViewController {
                     correctIndex: 0
                 )
             ]
+        ),
+        Quiz(
+            title: "Marvel Super Heroes",
+            description: "Test your marvel knowledge.",
+            iconName: "bolt.fill",
+            questions: [
+                Question(
+                    text: "What is Captain America's shield made of?",
+                    answers: ["Adamantium", "Vibranium", "Steel"],
+                    correctIndex: 1
+                ),
+                Question(
+                    text: "Who is the God of Mischief?",
+                    answers: ["Loki", "Thor", "Odin"],
+                    correctIndex: 0
+                )
+            ]
+        ),
+        Quiz(
+            title: "Science",
+            description: "Test your science knowledge.",
+            iconName: "atom",
+            questions: [
+                Question(
+                    text: "What is the chemical symbol for water?",
+                    answers: ["CO2", "O2", "H2O"],
+                    correctIndex: 2
+                ),
+                Question(
+                    text: "Which planet is known as the Red Planet?",
+                    answers: ["Mars", "Jupiter", "Venus"],
+                    correctIndex: 0
+                )
+            ]
         )
+        
+        
     ]
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "ShowQuiz", sender: quizzes[indexPath.row])
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowQuiz",
+           let destVC = segue.destination as? QuestionViewController,
+           let selectedQuiz = sender as? Quiz {
+            destVC.quiz = selectedQuiz
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,17 +97,6 @@ class ViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         // Do any additional setup after loading the view.
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showQuestion" {
-            if let questionVC = segue.destination as? QuestionViewController,
-               let indexPath = tableView.indexPathForSelectedRow {
-                
-                questionVC.quiz = quizzes[indexPath.row]
-                questionVC.questionIndex = 0
-            }
-        }
     }
 
 
