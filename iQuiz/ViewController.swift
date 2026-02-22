@@ -33,11 +33,6 @@ class ViewController: UIViewController {
                     text: "What is 2 + 2?",
                     answers: ["3", "4", "5"],
                     correctIndex: 1
-                ),
-                Question(
-                    text: "What is 5 * 3?",
-                    answers: ["15", "10", "8"],
-                    correctIndex: 0
                 )
             ]
         ),
@@ -50,11 +45,6 @@ class ViewController: UIViewController {
                     text: "What is Captain America's shield made of?",
                     answers: ["Adamantium", "Vibranium", "Steel"],
                     correctIndex: 1
-                ),
-                Question(
-                    text: "Who is the God of Mischief?",
-                    answers: ["Loki", "Thor", "Odin"],
-                    correctIndex: 0
                 )
             ]
         ),
@@ -67,11 +57,6 @@ class ViewController: UIViewController {
                     text: "What is the chemical symbol for water?",
                     answers: ["CO2", "O2", "H2O"],
                     correctIndex: 2
-                ),
-                Question(
-                    text: "Which planet is known as the Red Planet?",
-                    answers: ["Mars", "Jupiter", "Venus"],
-                    correctIndex: 0
                 )
             ]
         )

@@ -70,27 +70,23 @@ class QuestionViewController: UIViewController {
         submitButton.isEnabled = true
     }
     
-    @IBAction func submitTapped(_ sender: UIButton) {
-        guard let selectedAnswerIndex = selectedAnswerIndex,
-              let quiz = quiz else { return }
-        
-        let q = quiz.questions[currentQuestionIndex]
-        lastWasCorrect = selectedAnswerIndex == q.correctIndex
-        lastCorrectAnswer = q.answers[q.correctIndex]
-        lastQuestionText = q.text
-        
-        performSegue(withIdentifier: "ShowAnswer", sender: nil)
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowAnswer",
            let destVC = segue.destination as? AnswerViewController {
-            destVC.questionText = lastQuestionText
-            destVC.correctAnswer = lastCorrectAnswer
-            destVC.wasCorrect = lastWasCorrect
+            let q = quiz!.questions[currentQuestionIndex]
+            destVC.questionText = q.text
+            destVC.correctAnswer = q.answers[q.correctIndex]
+            destVC.wasCorrect = selectedAnswerIndex == q.correctIndex
         }
     }
 
+    
+    @IBAction func submitTapped(_ sender: UIButton) {
+        guard selectedAnswerIndex != nil, quiz != nil else { return }
+        performSegue(withIdentifier: "ShowAnswer", sender: nil)
+    }
+    
+    
 
     
     override func viewDidLoad() {

@@ -20,10 +20,26 @@ class AnswerViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("questionText: \(questionText)")
+        print("correctAnswer: \(correctAnswer)")
+        print("wasCorrect: \(wasCorrect)")
+        
+        
         questionLabel.text = questionText
         correctAnswerLabel.text = "Correct Answer: \(correctAnswer)"
         resultLabel.text = wasCorrect ? "✅ Correct!" : "❌ Wrong!"
         resultLabel.textColor = wasCorrect ? .systemGreen : .systemRed
+    }
+    
+    @IBAction func nextTapped(_ sender: UIButton) {
+        performSegue(withIdentifier: "ShowResult", sender: nil)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowResult",
+           let destVC = segue.destination as? ResultViewController {
+            destVC.wasCorrect = wasCorrect
+        }
     }
     
 }
