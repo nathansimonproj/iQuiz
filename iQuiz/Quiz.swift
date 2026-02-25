@@ -8,15 +8,14 @@
 import Foundation
 import UIKit
 
-struct Question {
-    let text: String
-    let answers: [String]
-    let correctIndex: Int
+struct Quiz: Codable {
+    let title: String
+    let desc: String
+    let questions: [Question]
 }
 
-struct Quiz {
-    let title: String
-    let description: String
-    let iconName: String
-    let questions: [Question]
+struct Question: Codable {
+    let text: String
+    let answer: String
+    let answers: [String]
 }

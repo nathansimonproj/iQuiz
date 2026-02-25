@@ -11,58 +11,23 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var tableView : UITableView!
     
-    @IBAction func showSettings(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(
-            title: "Settings",
-            message: "Settings go here",
-            preferredStyle: .alert
-        )
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        
-        present(alert, animated: true)
+//    @IBAction func showSettings(_ sender: UIBarButtonItem) {
+//        let alert = UIAlertController(
+//            title: "Settings",
+//            message: "Settings go here",
+//            preferredStyle: .alert
+//        )
+//        
+//        alert.addAction(UIAlertAction(title: "OK", style: .default))
+//        
+//        present(alert, animated: true)
+//    }
+    
+    @IBAction func showSettingsTwo(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "showSettings", sender: nil)
     }
     
-    let quizzes: [Quiz] = [
-        Quiz(
-            title: "Mathematics",
-            description: "Test your math knowledge.",
-            iconName: "function",
-            questions: [
-                Question(
-                    text: "What is 2 + 2?",
-                    answers: ["3", "4", "5"],
-                    correctIndex: 1
-                )
-            ]
-        ),
-        Quiz(
-            title: "Marvel Super Heroes",
-            description: "Test your marvel knowledge.",
-            iconName: "bolt.fill",
-            questions: [
-                Question(
-                    text: "What is Captain America's shield made of?",
-                    answers: ["Adamantium", "Vibranium", "Steel"],
-                    correctIndex: 1
-                )
-            ]
-        ),
-        Quiz(
-            title: "Science",
-            description: "Test your science knowledge.",
-            iconName: "atom",
-            questions: [
-                Question(
-                    text: "What is the chemical symbol for water?",
-                    answers: ["CO2", "O2", "H2O"],
-                    correctIndex: 2
-                )
-            ]
-        )
-        
-        
-    ]
+    var quizzes: [Quiz] = []
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "ShowQuiz", sender: quizzes[indexPath.row])
@@ -83,6 +48,19 @@ class ViewController: UIViewController {
         tableView.delegate = self
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let savedData = UserDefaults.standard.data(forKey: "quizData") {
+            do {
+                quizzes = try JSONDecoder().decode([Quiz].self, from: savedData)
+                tableView.reloadData()
+            } catch {
+                print("Failed to load saved quizzes")
+            }
+        }
+    }
 
 
 }
@@ -100,8 +78,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         let quiz = quizzes[indexPath.row]
         
         cell.textLabel?.text = quiz.title
-        cell.detailTextLabel?.text = quiz.description
-        cell.imageView?.image = UIImage(systemName: quiz.iconName)
+        cell.detailTextLabel?.text = quiz.desc
         
         return cell
     }

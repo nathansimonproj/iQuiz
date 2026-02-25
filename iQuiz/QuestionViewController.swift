@@ -75,8 +75,10 @@ class QuestionViewController: UIViewController {
            let destVC = segue.destination as? AnswerViewController {
             let q = quiz!.questions[currentQuestionIndex]
             destVC.questionText = q.text
-            destVC.correctAnswer = q.answers[q.correctIndex]
-            destVC.wasCorrect = selectedAnswerIndex == q.correctIndex
+            let correctIndex = (Int(q.answer) ?? 1) - 1
+
+            destVC.correctAnswer = q.answers[correctIndex]
+            destVC.wasCorrect = selectedAnswerIndex == correctIndex
         }
     }
 

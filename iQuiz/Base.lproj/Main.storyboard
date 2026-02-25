@@ -24,7 +24,8 @@
                                         <items>
                                             <barButtonItem title="Settings" id="KWR-Oc-0km">
                                                 <connections>
-                                                    <action selector="showSettings:" destination="BYZ-38-t0r" id="qtK-76-hYR"/>
+                                                    <action selector="showSettingsTwo:" destination="BYZ-38-t0r" id="MJ0-Rj-DyI"/>
+                                                    <segue destination="JFH-Zv-jVG" kind="show" identifier="showSettings" id="OzV-yX-5Py"/>
                                                 </connections>
                                             </barButtonItem>
                                         </items>
@@ -296,6 +297,59 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zy7-4O-2hP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3002" y="131"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="wxl-bS-i3D">
+            <objects>
+                <viewController id="JFH-Zv-jVG" customClass="SettingsViewController" customModule="iQuiz" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VUQ-As-nDS">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Doj-Jr-grb">
+                                <rect key="frame" x="20" y="79" width="353" height="684"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yhW-bO-Wbi">
+                                        <rect key="frame" x="0.0" y="0.0" width="353" height="228"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="gray" title="Back"/>
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="show" id="zKa-Yy-dY8"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="URL Field" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b7M-dc-php">
+                                        <rect key="frame" x="0.0" y="228" width="353" height="228"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oZB-eI-fQP">
+                                        <rect key="frame" x="0.0" y="456" width="353" height="228"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="gray" title="Check Now"/>
+                                        <connections>
+                                            <action selector="checkNowTapped:" destination="JFH-Zv-jVG" eventType="touchUpInside" id="Ghw-bM-OkE"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="NIb-BH-asP"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="NIb-BH-asP" firstAttribute="bottom" secondItem="Doj-Jr-grb" secondAttribute="bottom" constant="20" id="52a-Gm-Gb5"/>
+                            <constraint firstItem="NIb-BH-asP" firstAttribute="trailing" secondItem="Doj-Jr-grb" secondAttribute="trailing" constant="20" id="B6f-KF-4BH"/>
+                            <constraint firstItem="Doj-Jr-grb" firstAttribute="leading" secondItem="NIb-BH-asP" secondAttribute="leading" constant="20" id="aiM-K1-lws"/>
+                            <constraint firstItem="Doj-Jr-grb" firstAttribute="top" secondItem="NIb-BH-asP" secondAttribute="top" constant="20" id="m9q-Dt-UHf"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="mZS-Iq-9m3"/>
+                    <connections>
+                        <outlet property="urlTextField" destination="b7M-dc-php" id="elf-s9-Pt3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tyV-sk-dWA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="140" y="913"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
